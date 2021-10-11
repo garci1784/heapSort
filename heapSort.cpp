@@ -118,6 +118,33 @@ void heapSort(int a[], int n)
     }
 }
 
+//this function corrects a violation of max heap by bubbling up an element at i
+// a is a heap
+void bubbleUp(int a[], int i)
+{
+    //Write this function after you made insert() and while you are making remove.
+}
+
+//a is a max heap
+//cap is the capacity of the heap
+//n is the number of elements the heap currently has before insertion
+//el is the new element to be inserted
+void insert(int a[], int cap, int& n, int el)
+{
+    //refer to lecture notes
+    // write this function without calling bubbleUp first. When you work on remove, you will see you will
+    // have to have the same code there. Move the code into bubbleUp and call it.
+}
+
+//a is a max heap
+//n is the number of elements the heap currently has before deletion, then decremented after deletion
+// el is the element to be removed. Assume all elements are unique
+void remove(int a[], int& n, int el)
+{
+    //refer to lecture notes
+    //Call bubbleUp and max_heapify instead of coding the same things.
+}
+
 int main()
 {
   int ar[10] = {11, 3, 4, 5, 7, 19, 20, 2, 8, 1};
@@ -143,6 +170,16 @@ int main()
     cout << endl << "testing heapSort" << endl;
     heapSort(ar3, 2);
     print(ar3, 2);//1 2
+
+    cout << "testing insert" << endl;
+    int ar4[15] = {20, 8, 19, 5, 7, 11, 4, 2, 3, 1, -1, -1, -1, -1, -1}; //max heap with 10 elements already
+    int n = 10; //n is the number of elements in the heap
+    insert(ar4, 15, n, 15); //trying to remove 15
+    print(ar4, n); //20 15 19 5 8 11 4 2 3 1 7
+
+    cout << "testing remove" << endl;
+    remove(ar4, n, 15); //trying to remove 15
+    print(ar4, n);//20 8 19 5 7 11 4 2 3 1
 
   return 0;
 }
