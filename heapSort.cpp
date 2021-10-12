@@ -134,6 +134,23 @@ void insert(int a[], int cap, int& n, int el)
     //refer to lecture notes
     // write this function without calling bubbleUp first. When you work on remove, you will see you will
     // have to have the same code there. Move the code into bubbleUp and call it.
+    // ensure we only add a new element if it does not exceed array capacity
+    if (n < cap)
+    {
+        // add el into next empty slot.
+        a[n] = el;
+        ++n;
+        int parent = (n/2) -1;
+        /*
+        int tempParent = a[parent];
+        int newVal = a[n-1];
+        */
+        while (a[parent] < a[n-1])
+        {
+            exchange(a[parent], a[n-1]);
+            max_heapify(a, n, parent/2 - 1);
+        }
+    }
 }
 
 //a is a max heap
@@ -143,6 +160,27 @@ void remove(int a[], int& n, int el)
 {
     //refer to lecture notes
     //Call bubbleUp and max_heapify instead of coding the same things.
+    // look for el in the array
+    int elIndex = -1;
+    for (int i = 0; i < n; ++i)
+    {
+        if (a[i] == el)
+            elIndex = i;
+    }
+
+    if (elIndex != -1)
+    {
+        int tempEl = a[elIndex];
+        int tempAn = a[n-1];
+        // exchange elements at i and last index
+        exchange(a[elIndex], a[n-1]);
+        // exclude last value from the heap
+        --n;
+
+        int parent = elIndex;
+        // max heap violation. Fix it.
+        max_heapify(a, n, elIndex);
+    }
 }
 
 int main()
@@ -174,7 +212,7 @@ int main()
     cout << "testing insert" << endl;
     int ar4[15] = {20, 8, 19, 5, 7, 11, 4, 2, 3, 1, -1, -1, -1, -1, -1}; //max heap with 10 elements already
     int n = 10; //n is the number of elements in the heap
-    insert(ar4, 15, n, 15); //trying to remove 15
+    insert(ar4, 15, n, 15); //trying to insert 15
     print(ar4, n); //20 15 19 5 8 11 4 2 3 1 7
 
     cout << "testing remove" << endl;
